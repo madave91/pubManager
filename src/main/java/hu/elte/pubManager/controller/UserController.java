@@ -14,7 +14,6 @@ import hu.elte.pubManager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import static hu.elte.pubManager.model.User.Role.USER;
 
