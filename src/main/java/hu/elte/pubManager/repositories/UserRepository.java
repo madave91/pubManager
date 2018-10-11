@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hu.elte.pubManager.repository;
+package hu.elte.pubManager.repositories;
 
 /**
  *
@@ -17,9 +17,9 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, String> {
-    Optional<User> findByEmail(String email);
+    //Optional<User> findByEmail(String email);
 
     Optional<User> findByUsername(String username);
 
-    Optional<User> findByUsernameAndPassword(String username, String password);
+    //Optional<User> findByUsernameAndPassword(String username, String password);
 }

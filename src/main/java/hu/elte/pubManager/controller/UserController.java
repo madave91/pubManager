@@ -10,56 +10,46 @@ package hu.elte.pubManager.controller;
  * @author madave91
  */
 import hu.elte.pubManager.model.User;
-import hu.elte.pubManager.service.UserService;
+import hu.elte.pubManager.repositories.UserRepository;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import static hu.elte.pubManager.model.User.Role.USER;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
-@RequestMapping("/user")
+@RestController
+@RequestMapping("/users")
 public class UserController {
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
     
     @Autowired
-    private UserService userService;
+    private UserRepository userRepository;
+
+    @RequestMapping("get")
+    public String getParameters(Model model) {
+        return "user";
+    }
     
-    @GetMapping("/greet")
-    public String greeting(@RequestParam(value = "name", required = false, defaultValue = "World") String name, Model model) {
-        model.addAttribute("name", name);
-        return "greeting";
-    }
-
-    @GetMapping("/login")
-    public String login(Model model) {
-        model.addAttribute(new User());
-        return "login";
-    }
-
-    @PostMapping("/login")
-    public String login(@ModelAttribute User user, Model model) {
-        if (userService.isValid(user)) {
-            return redirectToGreeting(user);
+    @PostMapping("register")
+    public ResponseEntity<User> register(@RequestBody User user) {
+        Optional<User> oUser = userRepository.findByUsername(user.getUsername());
+        if (oUser.isPresent()) {
+            return ResponseEntity.badRequest().build();
         }
-        model.addAttribute("loginFailed", true);
-        return "login";
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setEnabled(true);
+        user.setRole(User.Role.ROLE_USER);
+        return ResponseEntity.ok(userRepository.save(user));
     }
 
-    @GetMapping("/register")
-    public String register(Model model) {
-        model.addAttribute("user", new User());
-        return "register";
-    }
-
-    @PostMapping("/register")
-    public String register(@ModelAttribute User user) {
-        user.setRole(USER);
-        userService.register(user);
-
-        return redirectToGreeting(user);
-    }
-
-    private String redirectToGreeting(@ModelAttribute User user) {
-        return "redirect:/user/greet?name=" + user.getUsername();
+    @PostMapping("login")
+    public ResponseEntity login(@RequestBody User user) {
+        return ResponseEntity.ok().build();
     }
 }

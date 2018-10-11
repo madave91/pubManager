@@ -1,1 +1,0 @@
-INSERT INTO USERS(ID, VERSION, USERNAME, EMAIL, PASSWORD, ROLE) VALUES (1, 1, 'madave91', 'madave91@gmail.com', 'admin', 'ADMIN');

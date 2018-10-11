@@ -9,51 +9,47 @@ package hu.elte.pubManager.model;
  *
  * @author madave91
  */
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.io.Serializable;
-import java.util.List;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User{
-
+@EqualsAndHashCode
+public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column
+    @NotNull
+    private String text;
     
-    @Column(nullable = false)
-    private String username;
+    @Column(updatable = false)
+    @CreationTimestamp
+    private LocalDateTime created_at;
+
+    @Column
+    @UpdateTimestamp
+    private LocalDateTime updated_at;
     
-    @Column(nullable = false)
-    private String password;
-    
-    @Column(nullable = false)
-    private boolean enabled;
-    
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Role role;
-    
-    public enum Role {
-        ROLE_USER, ROLE_MANAGER, ROLE_ADMIN
-    }
-    
-    @OneToMany(mappedBy = "user")
+    @ManyToOne
+    @JoinColumn
     @JsonIgnore
-    private List<Issue> issues;
-    
+    private Issue issue;
 }

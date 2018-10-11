@@ -5,9 +5,9 @@ A program célja, hogy egy bár működését segítse. Főbb feladatai közé t
 
 Funkcionális követelmények:
   A program indításakor egy beléptető rendszerrel találkozunk, ahol egy felhasználó és jelszó segítségével bejelentkezhetünk az applikációba. Minden felhasználónak megvan a jogköre, így megkülönböztetünk Admin, Menedzsert és Pultost.
-  Belépés után egy több menüpontból választhat a felhasználó:
+  Belépés után több menüpontból választhat a felhasználó:
     Orders: 
-      Ezen a fülön találhatóak a rendelések időrendben. Itt egy id, egy név és egy időpont tartozik minden rendeléshez, majd kijelölve azt láthatóak az addig megrendelt italok, ételek, árral és összesített árral feltünteve. Ebben a szekcióban lehetőségünk van hozzáadni plusz ételt, italt, valamint jelezni, hogy a fizetés megtörtént. Törlésre a Menedzsernek és az Adminnak van csak joga.
+      Ezen a fülön találhatóak a rendelések időrendben. Itt egy id, egy név és egy időpont tartozik minden rendeléshez, majd kijelölve láthatóak az addig megrendelt italok, ételek, árral és összesített árral feltünteve. Ebben a szekcióban lehetőségünk van hozzáadni plusz ételt, italt, valamint jelezni, hogy a fizetés megtörtént. Törlésre a Menedzsernek és az Adminnak van csak joga.
     Reservations:
       Itt az addig beérkezett foglalásokat találjuk, id-val, névvel, asztallal, időponttal ellátva. Lehetőségünk van új rendelés felvételére, törlésére, módosítására, aszerint, hogy van-e a kívánt időpontra szabad asztal.
     Work Schedule:
